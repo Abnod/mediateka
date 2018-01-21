@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#search-form").submit(function (event) {
+    $("#fill_media").click(function (event) {
 
         //stop submit the form, we will post it manually.
         event.preventDefault();
@@ -23,9 +23,8 @@ function fire_ajax_submit() {
         timeout: 600000,
         success: function (data) {
 
-            var json = "<h4>Ajax Response</h4><pre>"
-                + JSON.stringify(data, null, 4) + "</pre>";
-            $('#feedback').html(json);
+            var json = JSON.parse().stringify(data, null, 4);
+            $('#media_list').html(json);
 
             console.log("SUCCESS : ", data);
             $("#btn-search").prop("disabled", false);
