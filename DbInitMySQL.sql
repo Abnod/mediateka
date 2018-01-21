@@ -3,7 +3,7 @@ CREATE SCHEMA IF NOT EXISTS `mediateka` ;
 CREATE TABLE IF NOT EXISTS `mediateka`.`users` (
   `login` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  `admin` TINYINT NOT NULL DEFAULT 0,
+  `isadmin` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`login`),
   UNIQUE INDEX `login_UNIQUE` (`login` ASC));
 
@@ -19,4 +19,4 @@ CREATE TABLE IF NOT EXISTS `mediateka`.`media` (
 
 INSERT INTO `mediateka`.`users` (`login`, `password`) VALUES ('user1', 'user1');
 INSERT INTO `mediateka`.`users` (`login`, `password`) VALUES ('user2', 'user2');
-INSERT INTO `mediateka`.`users` (`login`, `password`, `admin`) VALUES ('admin', 'admin', '1');
+INSERT INTO `mediateka`.`users` (`login`, `password`, `isadmin`) VALUES ('admin', 'admin', '1');

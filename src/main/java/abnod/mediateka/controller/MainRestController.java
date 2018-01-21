@@ -1,10 +1,8 @@
 package abnod.mediateka.controller;
 
 import abnod.mediateka.mapper.MediaMapper;
-import abnod.mediateka.mapper.UserMapper;
 import abnod.mediateka.model.Media;
 import abnod.mediateka.model.MediaType;
-import abnod.mediateka.model.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,13 +18,12 @@ public class MainRestController {
         this.mediaMapper = mediaMapper;
     }
 
-    @GetMapping(value = {"", "/", "/all", "/all/{pageId}"})
-    public List<Media> listMedia(@PathVariable(required = false) String pageId) {
-        int pages=1;
-        try{
-//            if(pageId==null || Integer.parseInt(pageId) < 1 || Integer.parseInt(pageId) > pages) pages = 1;
-            if(pageId==null || Integer.parseInt(pageId) < 1) pages = 1;
-        } catch (NumberFormatException e){
+    @GetMapping(value = {"/all", "/all/{page}"})
+    public List<Media> listMedia(@PathVariable(required = false) String page) {
+        int pages = 1;
+        try {
+            if (page == null || Integer.parseInt(page) < 1) pages = 1;
+        } catch (NumberFormatException e) {
             pages = 1;
         }
         return mediaMapper.getMediaByPage(pages);
@@ -34,10 +31,13 @@ public class MainRestController {
 
     @GetMapping("/show/{mediaId}")
     public Media showMedia(@PathVariable String mediaId) {
-        if (mediaId == null) {
-            mediaId = "1";
+        int id = 0;
+        try {
+            id = Integer.parseInt(mediaId);
+        } catch (NumberFormatException e) {
+
         }
-        return new Media();
+        return mediaMapper.getMediaById(id);
 
     }
 
@@ -50,28 +50,32 @@ public class MainRestController {
 
     @RequestMapping("/add")
     public List<Media> addMedia(@RequestParam(required = false) String title, @RequestParam(required = false) String type,
-                          @RequestParam(required = false) String singer) {
+                                @RequestParam(required = false) String singer, @RequestParam(required = false) String path) {
         Media med = new Media();
-        med.setSinger("singerrrr");
-        med.setTitle("test title");
-        med.setType(MediaType.AUDIO);
+        med.setSinger(singer);
+        med.setTitle(title);
+        med.setType(MediaType.valueOf(type));
+        med.setPath(path);
         mediaMapper.addMedia(med);
         return mediaMapper.getMediaByPage(1);
     }
 
-    @RequestMapping("/edit/{mediaId}")
-    public Media editMedia(@PathVariable String mediaId) {
-        if (mediaId == null) {
-            mediaId = "1";
+    @PutMapping(value = "/edit/{mediaId}")
+    public List<Media> editMedia(@PathVariable String mediaId) {
+        if (mediaId == null || Integer.parseInt(mediaId) < 1) {
+            mediaId = "0";
         }
-        return new Media();
+        return mediaMapper.getMediaByPage(1);
     }
 
-    @RequestMapping("/delete/{mediaId}")
-    public Media deleteMedia(@PathVariable String mediaId) {
-        if (mediaId == null) {
-            mediaId = "1";
+    @DeleteMapping(value = "/delete/{mediaId}")
+    public void deleteMedia(@PathVariable String mediaId) {
+        int id = 0;
+        try {
+            id = Integer.parseInt(mediaId);
+        } catch (NumberFormatException e) {
+
         }
-        return new Media();
+        mediaMapper.deleteMediaById(id);
     }
 }

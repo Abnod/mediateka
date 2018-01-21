@@ -1,11 +1,7 @@
 package abnod.mediateka.mapper;
 
 import abnod.mediateka.model.Media;
-import abnod.mediateka.model.MediaType;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +16,9 @@ public interface MediaMapper {
     @Select("SELECT * FROM mediateka.media")
     List<Media> getMediaByPage(int page);
 
-    @Insert("INSERT INTO mediateka.media (title, singer, type) VALUES (#{title},#{singer},#{type})")
+    @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{type})")
     void addMedia(Media media);
+
+    @Delete("DELETE FROM mediateka.media WHERE id=#{id};")
+    void deleteMediaById(@Param("id") int id);
 }
