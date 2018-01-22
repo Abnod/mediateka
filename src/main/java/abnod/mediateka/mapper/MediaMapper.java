@@ -16,7 +16,7 @@ public interface MediaMapper {
     @Select("SELECT * FROM mediateka.media")
     List<Media> getMediaByPage(int page);
 
-    @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{type})")
+    @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{path})")
     void addMedia(Media media);
 
     @Delete("DELETE FROM mediateka.media WHERE id=#{id};")

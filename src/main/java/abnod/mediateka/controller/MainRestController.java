@@ -48,7 +48,7 @@ public class MainRestController {
         return new ArrayList<>();
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public List<Media> addMedia(@RequestParam(required = false) String title, @RequestParam(required = false) String type,
                                 @RequestParam(required = false) String singer, @RequestParam(required = false) String path) {
         Media med = new Media();

@@ -4,16 +4,39 @@
 <head>
     <title>List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
     <link type="text/css" href="css/index.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="container" style="min-height: 500px">
-        <h1>List of media</h1>
-        <div id="media_list"></div>
-        <div id="fill_media"></div>
+    <div>
+        <form action="/logout" method="POST">
+            <input type="submit" value="Sign Out"/>
+        </form>
     </div>
-
-    <script type="text/javascript" src="js/all.js"></script>
+    <table id="media_list">
+        <caption>List of media</caption>
+        <tr>
+            <th>Title</th>
+            <th>Singer</th>
+            <th>Record Type</th>
+            <th>Path</th>
+            <th></th>
+        </tr>
+    </table>
+    <!-- The Modal -->
+    <div id="infoWindow" class="modal">
+        <!-- Modal content -->
+        <div id="info_content">
+            <div class="close_wrapper">
+                <span id="infoClose" class="close">&times;</span>
+            </div>
+            <div class="info_row">
+                <span id="info_singer"></span>
+                <span id="info_type"></span>
+            </div>
+            <div id="info_title" class="info_row"></div>
+            <div id="info_path" class="info_row"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
