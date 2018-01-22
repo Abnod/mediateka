@@ -49,8 +49,8 @@ public class MainRestController {
     }
 
     @PostMapping("/add")
-    public List<Media> addMedia(@RequestParam(required = false) String title, @RequestParam(required = false) String type,
-                                @RequestParam(required = false) String singer, @RequestParam(required = false) String path) {
+    public List<Media> addMedia(@RequestParam String title, @RequestParam String type,
+                                @RequestParam(required = false) String singer, @RequestParam String path) {
         Media med = new Media();
         med.setSinger(singer);
         med.setTitle(title);
@@ -68,7 +68,7 @@ public class MainRestController {
         return mediaMapper.getMediaByPage(1);
     }
 
-    @DeleteMapping(value = "/delete/{mediaId}")
+    @DeleteMapping(value = "/remove/{mediaId}")
     public void deleteMedia(@PathVariable String mediaId) {
         int id = 0;
         try {

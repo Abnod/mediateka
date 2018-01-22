@@ -7,36 +7,62 @@
     <link type="text/css" href="css/index.css" rel="stylesheet"/>
 </head>
 <body>
-    <div>
-        <form action="/logout" method="POST">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </div>
-    <table id="media_list">
-        <caption>List of media</caption>
-        <tr>
-            <th>Title</th>
-            <th>Singer</th>
-            <th>Record Type</th>
-            <th>Path</th>
-            <th></th>
-        </tr>
-    </table>
-    <!-- The Modal -->
-    <div id="infoWindow" class="modal">
-        <!-- Modal content -->
-        <div id="info_content">
-            <div class="close_wrapper">
-                <span id="infoClose" class="close">&times;</span>
-            </div>
-            <div class="info_row">
-                <span id="info_singer"></span>
-                <span id="info_type"></span>
-            </div>
-            <div id="info_title" class="info_row"></div>
-            <div id="info_path" class="info_row"></div>
+<div>
+    <form action="/logout" method="POST">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+<table id="media_list">
+    <caption>List of media</caption>
+    <tr>
+        <th>Title</th>
+        <th>Record Type</th>
+        <th></th>
+    </tr>
+</table>
+<a href="" id="addLink">Add new record</a>
+<!-- The Modal -->
+<div id="infoWindow" class="modal">
+    <!-- Modal content -->
+    <div class="content">
+        <div class="close_wrapper">
+            <span id="infoClose" class="close">&times;</span>
         </div>
+        <div class="info_row">
+            <span id="info_singer"></span>
+            <span id="info_type"></span>
+        </div>
+        <div id="info_title" class="info_row"></div>
+        <div id="info_path" class="info_row"></div>
     </div>
-    <script type="text/javascript" src="js/main.js"></script>
+</div>
+<form id="newForm" class="modal" method="post" name="newM">
+    <div class="content">
+        <div class="info_row">
+            <label>
+                Singer
+                <input type="text" name="singer"/>
+            </label>
+            <label>
+                Media type
+                <select name="type">
+                    <option value="AUDIO">audio</option>
+                    <option value="VIDEO">video</option>
+                </select>
+            </label>
+        </div>
+        <label>
+            Title
+            <input type="text" name="title"/>
+        </label>
+        <label>
+            Path to file
+            <input type="text" name="path"/>
+        </label>
+        <input type="submit" value="Create"/>
+        <span id="newClose" class="close">Cancel</span>
+    </div>
+</form>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
