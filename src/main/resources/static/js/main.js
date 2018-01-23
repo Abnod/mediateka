@@ -1,5 +1,7 @@
 var json;
 var roleAdmin;
+var currentPage;
+var lastPage;
 
 document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
@@ -10,20 +12,22 @@ document.onreadystatechange = function () {
             if (checkRights.readyState !== 4) return;
             roleAdmin = checkRights.status !== 403;
             initForm();
-            getMedia(false);
+            currentPage = 1;
+            generatePages(false, 1);
         };
     }
 };
 
-function getMedia(booleanSearch) {
+function getMedia(booleanSearch, page) {
+    alert("gm=" + page);
     clearTableContent();
     var xhr = new XMLHttpRequest();
     if (booleanSearch) {
         var formData = new FormData(modal);
-        xhr.open("POST", "media/search");
+        xhr.open("POST", "media/search/" + page);
         xhr.send(formData);
     } else {
-        xhr.open("GET", "media/");
+        xhr.open("GET", "media/" + page);
         xhr.send();
     }
     xhr.onreadystatechange = function () {
@@ -88,4 +92,50 @@ function showAll(data) {
 function clearTableContent() {
     var rowsForRemoval = media_list.getElementsByClassName("media_row");
     while (rowsForRemoval[0]) rowsForRemoval[0].parentNode.removeChild(rowsForRemoval[0]);
+}
+
+function generatePages(booleanForSearch, page) {
+    var xhr = new XMLHttpRequest();
+    if (booleanForSearch) {
+        var formData = new FormData(modal);
+        xhr.open("POST", "media/searchpages/");
+        xhr.send(formData);
+    } else {
+        xhr.open("GET", "media/pages/");
+        xhr.send();
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+        var pageCount = xhr.responseText;
+        lastPage = pageCount;
+
+        if (page === "last") {
+            page = lastPage;
+        } else if (page > lastPage) {
+            page = lastPage;
+        }
+        currentPage = page;
+        alert("gener page = " + lastPage);
+
+        var pagingBlock = document.getElementById("pagination");
+        pagingBlock.innerHTML = '';
+        for (i = 1; i <= pageCount; i++) {
+            var temp = document.createElement('a');
+            pagingBlock.appendChild(temp);
+            temp.innerHTML = i;
+            temp.setAttribute("class", "page_button");
+            temp.setAttribute("href", "");
+            temp.setAttribute("name", i);
+            temp.addEventListener("click", function (event) {
+                event.preventDefault();
+                currentPage = event.target.getAttribute("name");
+                if (booleanForSearch) {
+                    generatePages(true, currentPage);
+                } else {
+                    generatePages(false, currentPage);
+                }
+            });
+        }
+        getMedia(booleanForSearch, page)
+    };
 }

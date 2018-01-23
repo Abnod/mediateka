@@ -10,11 +10,12 @@ import java.util.List;
 @Mapper
 public interface MediaMapper {
 
-    @Select("SELECT * FROM mediateka.media;")
-    List<Media> getMediaByPage(int page);
+    @Select("SELECT * FROM mediateka.media LIMIT #{page}, #{records};")
+    List<Media> getMediaByPage(@Param("page") int page, @Param("records") int records);
 
     @SelectProvider(type = SearchProvider.class, method = "search")
-    List<Media> getSearchMediaByPage(@Param("searchParams") Media searchParams, @Param("page") int page);
+    List<Media> getSearchMediaByPage(@Param("searchParams") Media searchParams, @Param("page") int page,
+                                     @Param("records") int records);
 
     @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{path});")
     void addMedia(Media media);
@@ -24,4 +25,10 @@ public interface MediaMapper {
 
     @Delete("DELETE FROM mediateka.media WHERE id=#{id};")
     void deleteMediaById(@Param("id") int id);
+
+    @Select("SELECT COUNT(id) FROM mediateka.media;")
+    int getMediaCount();
+
+    @SelectProvider(type = SearchProvider.class, method = "getPages")
+    int getSearchMediaCount(@Param("searchParams") Media searchParams);
 }

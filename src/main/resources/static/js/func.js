@@ -44,7 +44,7 @@ function editMedia(media) {
 
     modal.onsubmit = function (event) {
         event.preventDefault();
-        sendReq('media/' + media.id);
+        sendReq('media/' + media.id, currentPage);
     };
 
     modal.style.display = 'block';
@@ -60,7 +60,7 @@ function addMedia() {
 
     modal.onsubmit = function (event) {
         event.preventDefault();
-        sendReq('media/');
+        sendReq('media/', "last");
     };
 
     modal.style.display = 'block';
@@ -76,7 +76,7 @@ function searchMedia() {
 
     modal.onsubmit = function (event) {
         event.preventDefault();
-        getMedia(true);
+        generatePages(true, 1);
         complete(true);
     };
 
@@ -113,14 +113,14 @@ function fillMedia(param) {
 
 
 //sends server request
-function sendReq(text) {
+function sendReq(text, page) {
     var request = new XMLHttpRequest();
     var formData = new FormData(modal);
     request.open("POST", text);
     request.send(formData);
     request.onreadystatechange = function () {
         if (request.readyState !== 4) return;
-        getMedia(false);
+        generatePages(false, page);
         complete(true);
     }
 }
@@ -166,7 +166,7 @@ function showPrompt(media) {
         removeRequest.send();
         removeRequest.onreadystatechange = function () {
             if (removeRequest.readyState !== 4) return;
-            getMedia(false);
+            generatePages(false, currentPage);
             complete(true);
         };
     };
