@@ -9,9 +9,7 @@ document.onreadystatechange = function () {
         checkRights.onreadystatechange = function () {
             if (checkRights.readyState !== 4) return;
             roleAdmin = checkRights.status !== 403;
-            if (roleAdmin) {
-                initForm();
-            }
+            initForm();
             getAll();
         };
     }

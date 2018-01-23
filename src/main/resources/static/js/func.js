@@ -34,6 +34,7 @@ function initForm() {
 
 //media edit logic
 function editMedia(media) {
+    formOk.innerHTML = '<input type="submit" value="Save"/>';
     prevValue = '';
     readOnlyAll(false);
     fillMedia(media);
@@ -49,6 +50,7 @@ function editMedia(media) {
 
 //add media logic
 function addMedia() {
+    formOk.innerHTML = '<input type="submit" value="Add"/>';
     prevValue = '';
     readOnlyAll(false);
     fillMedia(null);
@@ -64,6 +66,7 @@ function addMedia() {
 
 //show media logic
 function showMedia(media) {
+    formOk.innerHTML = '';
     prevValue = '';
     fillMedia(media);
     readOnlyAll(true);
