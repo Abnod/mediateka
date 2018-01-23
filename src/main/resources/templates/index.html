@@ -20,23 +20,18 @@
         <th></th>
     </tr>
 </table>
-<a href="" id="addLink">Add new record</a>
-<!-- The Modal -->
-<div id="infoWindow" class="modal">
-    <!-- Modal content -->
-    <div class="content">
-        <div class="close_wrapper">
-            <span id="infoClose" class="close">&times;</span>
-        </div>
-        <div class="info_row">
-            <span id="info_singer"></span>
-            <span id="info_type"></span>
-        </div>
-        <div id="info_title" class="info_row"></div>
-        <div id="info_path" class="info_row"></div>
-    </div>
+<div id="adb">
+
 </div>
-<form id="newForm" class="modal" method="post" name="newM">
+<!-- The Modal -->
+<div id="prompt-form-container">
+    <form id="prompt-form">
+        <div id="prompt-message"></div>
+        <input type="submit" value="Yes"/>
+        <input type="button" name="cancel" value="Cancel"/>
+    </form>
+</div>
+<form id="form" class="modal" method="post" name="showM">
     <div class="content">
         <div class="info_row">
             <label>
@@ -59,10 +54,11 @@
             Path to file
             <input type="text" name="path"/>
         </label>
-        <input type="submit" value="Create"/>
-        <span id="newClose" class="close">Cancel</span>
+        <input type="submit" value="Submit"/>
+        <input type="button" name="cancel" value="Cancel"/>
     </div>
 </form>
 <script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/func.js"></script>
 </body>
 </html>

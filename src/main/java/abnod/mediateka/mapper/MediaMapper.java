@@ -10,14 +10,14 @@ import java.util.List;
 @Mapper
 public interface MediaMapper {
 
-    @Select("SELECT * FROM mediateka.media WHERE id = #{id}")
-    Media getMediaById(@Param("id") int id);
-
-    @Select("SELECT * FROM mediateka.media")
+    @Select("SELECT * FROM mediateka.media;")
     List<Media> getMediaByPage(int page);
 
-    @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{path})")
+    @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{path});")
     void addMedia(Media media);
+
+    @Update("UPDATE mediateka.media SET title=#{title}, singer=#{singer}, type=#{type}, path=#{path} WHERE id=#{id};")
+    void updateMedia(Media media);
 
     @Delete("DELETE FROM mediateka.media WHERE id=#{id};")
     void deleteMediaById(@Param("id") int id);
