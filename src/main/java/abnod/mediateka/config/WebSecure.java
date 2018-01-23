@@ -25,6 +25,7 @@ public class WebSecure extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/media/search").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/media/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/media/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/media/**").hasRole("ADMIN")
