@@ -9,6 +9,9 @@ window.addEventListener("click", function (event) {
 
 
 function initForm() {
+    searchButton.addEventListener("click", function () {
+        searchMedia();
+    });
     modal = document.getElementById('form');
     var type = modal.elements["type"];
     prevValue = '';
@@ -64,6 +67,23 @@ function addMedia() {
 }
 
 
+//search media logic
+function searchMedia() {
+    formOk.innerHTML = '<input type="submit" value="Search"/>';
+    prevValue = '';
+    readOnlyAll(false);
+    fillMedia(null);
+
+    modal.onsubmit = function (event) {
+        event.preventDefault();
+        getMedia(true);
+        complete(true);
+    };
+
+    modal.style.display = 'block';
+}
+
+
 //show media logic
 function showMedia(media) {
     formOk.innerHTML = '';
@@ -75,6 +95,7 @@ function showMedia(media) {
 }
 
 
+//fills or clear form fields
 function fillMedia(param) {
     if (param !== null) {
         modal.elements["singer"].value = param.singer;
@@ -90,6 +111,8 @@ function fillMedia(param) {
     }
 }
 
+
+//sends server request
 function sendReq(text) {
     var request = new XMLHttpRequest();
     var formData = new FormData(modal);
@@ -97,16 +120,20 @@ function sendReq(text) {
     request.send(formData);
     request.onreadystatechange = function () {
         if (request.readyState !== 4) return;
-        getAll();
+        getMedia(false);
         complete(true);
     }
 }
 
+
+//close modal window
 function complete(bool) {
     modal.style.display = 'none';
     document.onkeydown = null;
 }
 
+
+//disable form fields
 function readOnlyAll(bool) {
     modal.elements["singer"].readOnly = bool;
     modal.elements["type"].disabled = bool;
@@ -139,7 +166,7 @@ function showPrompt(media) {
         removeRequest.send();
         removeRequest.onreadystatechange = function () {
             if (removeRequest.readyState !== 4) return;
-            getAll();
+            getMedia(false);
             complete(true);
         };
     };

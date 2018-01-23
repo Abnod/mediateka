@@ -13,6 +13,9 @@ public interface MediaMapper {
     @Select("SELECT * FROM mediateka.media;")
     List<Media> getMediaByPage(int page);
 
+    @SelectProvider(type = SearchProvider.class, method = "search")
+    List<Media> getSearchMediaByPage(@Param("searchParams") Media searchParams, @Param("page") int page);
+
     @Insert("INSERT INTO mediateka.media (title, singer, type, path) VALUES (#{title},#{singer},#{type},#{path});")
     void addMedia(Media media);
 

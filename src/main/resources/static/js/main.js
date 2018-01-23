@@ -10,16 +10,22 @@ document.onreadystatechange = function () {
             if (checkRights.readyState !== 4) return;
             roleAdmin = checkRights.status !== 403;
             initForm();
-            getAll();
+            getMedia(false);
         };
     }
 };
 
-function getAll() {
+function getMedia(booleanSearch) {
     clearTableContent();
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "media/");
-    xhr.send();
+    if (booleanSearch) {
+        var formData = new FormData(modal);
+        xhr.open("POST", "media/search");
+        xhr.send(formData);
+    } else {
+        xhr.open("GET", "media/");
+        xhr.send();
+    }
     xhr.onreadystatechange = function () {
         if (xhr.readyState !== 4) return;
         if (xhr.status !== 200) {

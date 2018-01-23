@@ -29,11 +29,15 @@ public class MainRestController {
         return mediaMapper.getMediaByPage(pages);
     }
 
-    @GetMapping("/search")
-    public List<Media> searchMedia(@RequestParam(required = false) String title, @RequestParam(required = false) String type,
+    @PostMapping("/search")
+    public List<Media> searchMedia(@RequestParam(required = false) String title, @RequestParam String type,
                                    @RequestParam(required = false) String singer, @RequestParam(required = false) String path) {
-
-        return new ArrayList<>();
+        Media med = new Media();
+        med.setSinger(singer);
+        med.setTitle(title);
+        med.setType(MediaType.valueOf(type));
+        med.setPath(path);
+        return mediaMapper.getSearchMediaByPage(med, 1);
     }
 
     @PostMapping("/")
