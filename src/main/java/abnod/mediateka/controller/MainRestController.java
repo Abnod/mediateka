@@ -38,15 +38,7 @@ public class MainRestController {
 
     @GetMapping(value = {"/", "/{page}"})
     public List<Media> listMedia(@PathVariable(required = false) String page) {
-        int pages;
-        try {
-            if (page == null || Integer.parseInt(page) < 1) pages = 1;
-            else {
-                pages = Integer.parseInt(page);
-            }
-        } catch (NumberFormatException e) {
-            pages = 1;
-        }
+        int pages = checkPages(page);
         return mediaMapper.getMediaByPage((pages - 1) * (int) recordsOnPage, (int) recordsOnPage);
     }
 
@@ -54,15 +46,8 @@ public class MainRestController {
     public List<Media> searchMedia(@PathVariable(required = false) String page,
                                    @RequestParam(required = false) String title, @RequestParam String type,
                                    @RequestParam(required = false) String singer, @RequestParam(required = false) String path) {
-        int pages;
-        try {
-            if (page == null || Integer.parseInt(page) < 1) pages = 1;
-            else {
-                pages = Integer.parseInt(page);
-            }
-        } catch (NumberFormatException e) {
-            pages = 1;
-        }
+        int pages = checkPages(page);
+
         Media med = new Media();
         med.setSinger(singer);
         med.setTitle(title);
@@ -102,5 +87,18 @@ public class MainRestController {
         } catch (NumberFormatException e) {
         }
         mediaMapper.deleteMediaById(id);
+    }
+
+    private int checkPages(String page) {
+        int pages;
+        try {
+            if (page == null || Integer.parseInt(page) < 1) pages = 1;
+            else {
+                pages = Integer.parseInt(page);
+            }
+        } catch (NumberFormatException e) {
+            pages = 1;
+        }
+        return pages;
     }
 }

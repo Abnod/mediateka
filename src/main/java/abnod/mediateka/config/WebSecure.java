@@ -27,6 +27,7 @@ public class WebSecure extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/media/search/**", "/media/pages/**", "/media/searchpages/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/media/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/media/**").hasRole("ADMIN")
@@ -40,7 +41,7 @@ public class WebSecure extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

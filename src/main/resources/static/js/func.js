@@ -9,7 +9,8 @@ window.addEventListener("click", function (event) {
 
 
 function initForm() {
-    searchButton.addEventListener("click", function () {
+    searchButton.addEventListener("click", function (event) {
+        event.preventDefault();
         searchMedia();
     });
     modal = document.getElementById('form');
@@ -28,7 +29,8 @@ function initForm() {
                 singr.value = prevValue;
         }
     });
-    modal.elements.cancel.addEventListener("click", function () {
+    modal.elements.cancel.addEventListener("click", function (event) {
+        event.preventDefault();
         fillMedia(null);
         complete(false);
     });
@@ -37,7 +39,7 @@ function initForm() {
 
 //media edit logic
 function editMedia(media) {
-    formOk.innerHTML = '<input type="submit" value="Save"/>';
+    formOk.innerHTML = '<input type="submit" class="btn btnInputSize brown" value="Save"/>';
     prevValue = '';
     readOnlyAll(false);
     fillMedia(media);
@@ -53,7 +55,7 @@ function editMedia(media) {
 
 //add media logic
 function addMedia() {
-    formOk.innerHTML = '<input type="submit" value="Add"/>';
+    formOk.innerHTML = '<input type="submit" class="btn btnInputSize brown" value="Add"/>';
     prevValue = '';
     readOnlyAll(false);
     fillMedia(null);
@@ -69,7 +71,7 @@ function addMedia() {
 
 //search media logic
 function searchMedia() {
-    formOk.innerHTML = '<input type="submit" value="Search"/>';
+    formOk.innerHTML = '<input type="submit" class="btn btnInputSize brown" value="Search"/>';
     prevValue = '';
     readOnlyAll(false);
     fillMedia(null);
@@ -171,7 +173,8 @@ function showPrompt(media) {
         };
     };
 
-    form.elements.cancel.onclick = function () {
+    form.elements.cancel.onclick = function (event) {
+        event.preventDefault();
         complete(false);
     };
 

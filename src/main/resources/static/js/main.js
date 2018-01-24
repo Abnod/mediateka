@@ -19,13 +19,16 @@ document.onreadystatechange = function () {
 };
 
 function getMedia(booleanSearch, page) {
-    clearTableContent();
     var xhr = new XMLHttpRequest();
     if (booleanSearch) {
+        tableHeader.innerHTML = 'Search Results';
+        addAllButton();
         var formData = new FormData(modal);
         xhr.open("POST", "media/search/" + page);
         xhr.send(formData);
     } else {
+        tableHeader.innerHTML = 'List of Media';
+        backToAll.innerHTML = '';
         xhr.open("GET", "media/" + page);
         xhr.send();
     }
@@ -80,7 +83,7 @@ function showAll(data) {
 
     if (roleAdmin) {
         var adb = document.getElementById("adb");
-        adb.innerHTML = '<a href="" id="addLink">Add new record</a>';
+        adb.innerHTML = '<a href="" id="addLink" class="btn btnDivSize brown">Add new record</a>';
         adb.addEventListener("click", function (event) {
             event.preventDefault();
             addMedia();
@@ -94,6 +97,7 @@ function clearTableContent() {
 }
 
 function generatePages(booleanForSearch, page) {
+    clearTableContent();
     var xhr = new XMLHttpRequest();
     if (booleanForSearch) {
         var formData = new FormData(modal);
@@ -121,7 +125,7 @@ function generatePages(booleanForSearch, page) {
             var temp = document.createElement('a');
             pagingBlock.appendChild(temp);
             temp.innerHTML = i;
-            temp.setAttribute("class", "page_button");
+            temp.setAttribute("class", "btn btnDivSize brown mar10");
             temp.setAttribute("href", "");
             temp.setAttribute("name", i);
             temp.addEventListener("click", function (event) {
@@ -136,4 +140,12 @@ function generatePages(booleanForSearch, page) {
         }
         getMedia(booleanForSearch, page)
     };
+}
+
+function addAllButton() {
+    backToAll.innerHTML = '<a href="" id="AllButton" class="btn btnDivSize blue">Show All Entries</a>';
+    backToAll.addEventListener("click", function (event) {
+        event.preventDefault();
+        generatePages(false, 1)
+    });
 }
