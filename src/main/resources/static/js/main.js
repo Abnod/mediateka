@@ -19,7 +19,6 @@ document.onreadystatechange = function () {
 };
 
 function getMedia(booleanSearch, page) {
-    alert("gm=" + page);
     clearTableContent();
     var xhr = new XMLHttpRequest();
     if (booleanSearch) {
@@ -115,7 +114,6 @@ function generatePages(booleanForSearch, page) {
             page = lastPage;
         }
         currentPage = page;
-        alert("gener page = " + lastPage);
 
         var pagingBlock = document.getElementById("pagination");
         pagingBlock.innerHTML = '';

@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS `mediateka`.`media` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `title_UNIQUE` (`title` ASC));
 
-INSERT INTO `mediateka`.`users` (`login`, `password`) VALUES ('user1', 'user1');
-INSERT INTO `mediateka`.`users` (`login`, `password`) VALUES ('user2', 'user2');
-INSERT INTO `mediateka`.`users` (`login`, `password`, `isadmin`) VALUES ('admin', 'admin', '1');
+INSERT INTO `mediateka`.`users` (`login`, `password`) VALUES ('user1', '$2a$10$Gurt6BFp0o8zTr.BVnnQdu9HXeeO25ZBrnKEyf8o8961brBgoda52');
+INSERT INTO `mediateka`.`users` (`login`, `password`) VALUES ('user2', '$2a$10$NBDttFSkAVgpPrPgbKWDJeovr1apXHXqRZJIgvUUpyeqeYTTPMxXW');
+INSERT INTO `mediateka`.`users` (`login`, `password`, `isadmin`) VALUES ('admin', '$2a$10$cG2aA30Sl6RMhhlydvByzeWr/8I4aUrRyxGhE49rDIwliBFzGV9pu', '1');
